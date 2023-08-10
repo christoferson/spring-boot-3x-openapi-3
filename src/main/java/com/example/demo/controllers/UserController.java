@@ -2,7 +2,9 @@ package com.example.demo.controllers;
 
 import java.util.List;
 
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,6 +49,12 @@ public class UserController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
+	@GetMapping("/search")
+	public ResponseEntity<List<User>> searchUsers(@ParameterObject Pageable pageable) {
+		List<User> users = userService.getAllUsers();
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
+	
 	// Build Update User REST API
 	@PutMapping("{id}")
 	// http://localhost:8080/api/users/1
